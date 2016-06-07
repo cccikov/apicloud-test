@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html>
+        <head>
+                <meta charset="utf-8">
+                <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+                <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+                <title>小白之路</title>
+                <link rel="stylesheet" type="text/css" href="../css/api.css" />
+                <style>
+                #bannder {
+                                height: 200px;        /* 和UIScrollPictrue模块一样高度 */
+                        }
+                </style>
+        </head>
+        <body>
+                <!--幻灯片的容器-->
+                <div id="bannder"></div>
+                <!--主要内容容器-->
+                <div class="other-content">
+                        1
+                        <br />
+                        2
+                        <br />
+                        3
+                        <br />
+                        4
+                        <br />
+                        5
+                        <br />
+                        6
+                        <br />
+                        7
+                        <br />
+                        8
+                        <br />
+                        9
+                        <br />
+                        10
+                        <br />
+                        11
+                        <br />
+                        12
+                        <br />
+                        13
+                        <br />
+                        14
+                        <br />
+                        15
+                        <br />
+                        16
+                        <br />
+                        17
+                        <br />
+                        18
+                        <br />
+                        19
+                        <br />
+                        20
+                        <br />
+                        21
+                        <br />
+                        22
+                        <br />
+                </div>
+        </body>
+        <script type="text/javascript" src="../script/api.js"></script>
+        <script type="text/javascript">
+                apiready = function() {
+                        var obj = api.require('UIScrollPicture');
+                        var paths = ['http://www.winu.net/a.jpg', 'http://www.winu.net/a.jpg', 'http://www.winu.net/a.jpg'];
+                        var captions = ['标题一', '标题二', '标题三'];
+                        obj.open({
+                                rect : {
+                                        x : 0,
+                                        y : 0,
+                                        w : api.winWidth,
+                                        h : 200
+                                },
+                                data : {
+                                        paths : paths,
+                                        captions : captions
+                                },
+                                styles : {
+                                        caption : {
+                                                height : 35,
+                                                color : '#E0FFFF',
+                                                size : 13,
+                                                bgColor : '#696969',
+                                                position : 'bottom'
+                                        },
+                                        indicator : {
+                                                align : 'center',
+                                                color : '#FFFFFF',
+                                                activeColor : '#DA70D6'
+                                        }
+                                },
+                                placeholderImg : 'widget://res/slide1.jpg',
+                                contentMode : 'scaleToFill',
+                                interval : 3,
+                                loop : true,
+                                fixedOn : 'UIscrollPictrue',
+                                fixed : false
+                        }, function(ret, err) {
+                                if (ret.status) {
+                                        if (ret.eventType == 'click') {
+                                                //点击图片的操作
+                                                alert(ret.index);
+                                        }
+                                }
+                        });
+                };
+        </script>
+</html>

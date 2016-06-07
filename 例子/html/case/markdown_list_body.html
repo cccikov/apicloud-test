@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../../css/aui/aui.css" />
+		<style type="text/css">
+			.aui-content, .aui-content > .aui-list-view:last-child {
+				margin-bottom: 0;
+			}
+			#loading-fixed {
+				position: fixed;
+				top: 0;
+				background: #fff;
+				bottom: 0;
+				right: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				z-index: 199204;
+				display: -webkit-box;
+				-webkit-box-orient: horizontal;
+				-webkit-box-pack: center;
+				-webkit-box-align: center;
+				display: box;
+				box-orient: horizontal;
+				box-pack: center;
+				box-align: center;
+			}
+			#loading-fixed img {
+				width: 200px;
+			}
+		</style>
+		<script id="tpl" type="text/html">
+			[: for (var i=0;i<list.length;i++) { :]
+			<li class="aui-list-view-cell" data-win="list-image" data-guid="[:=list[i].guid:]">
+			<div class="aui-arrow-right aui-ellipsis-1">
+			[:=list[i].title:]
+			</div>
+			</li>
+			[:}:]
+		</script>
+	</head>
+	<body>
+		<div id="loading-fixed">
+			<img src="../../image/load.gif" />
+		</div>
+		<div class="aui-content">
+			<ul class="aui-list-view" id="md-list"></ul>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/AHelper.js"></script>
+	<script type="text/javascript" src="../../script/zepto.min.js"></script>
+	<script type="text/javascript" src="../../script/module_db/db.js"></script>
+	<script type="text/javascript">
+		var dbname = "markdownDB";
+		var tbname = "md_dataList";
+		function loadData() {
+			var selectSql = "select * from " + tbname + " order by writetime desc";
+			db_selectSql(dbname, selectSql, function(data) {
+				// 获取模板内容，并加载数据
+				var html = H.$tppl(H.$api.byId('tpl').innerHTML, {
+					list : data
+				});
+				$("#md-list").html(html);
+				$("#loading-fixed").css("display", "none");
+			});
+		}
+
+		Zepto(function($) {
+			$("#md-list").on("tap", "li", function() {
+				var guid = $(this).attr("data-guid");
+				H.$openWin('markdown_view_head', 'markdown_view_head.html', {
+					guid : guid
+				});
+			});
+		});
+		H.ready(function() {
+			// 引入数据模块
+			H.$require("db");
+			$$db = H.$module.db;
+			// 创建表（先判断是否存在）
+			var createTableSql = 'create table if not exists ' + tbname + '(guid nvarchar(100), title varchar(200),content text, writetime datetime);';
+			db_executeSql(dbname, createTableSql, function() {
+				loadData();
+			});
+		});
+	</script>
+</html>

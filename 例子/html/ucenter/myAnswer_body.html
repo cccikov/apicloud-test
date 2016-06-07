@@ -1,0 +1,447 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../../css/aui/aui.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/iconfont/iconfont.css" />
+		<style type="text/css">
+			html, body {
+				background: #f4f5f9;
+			}
+			.push-fixed, .refresh-fixed {
+				width: 40px;
+				height: 40px;
+				border-radius: 50%;
+				-webkit-border-radius: 50%;
+				background: rgba(67,133,246,0.8);
+				position: fixed;
+				bottom: 10px;
+				right: 10px;
+				z-index: 10000;
+			}
+			.refresh-fixed {
+			}
+			.winu-center-all {
+				display: -webkit-box;
+				-webkit-box-orient: horizontal;
+				-webkit-box-pack: center;
+				-webkit-box-align: center;
+				display: box;
+				box-orient: horizontal;
+				box-pack: center;
+				box-align: center;
+			}
+			.push-fixed i.iconfont, .refresh-fixed i.iconfont {
+				color: #fff;
+				font-size: 20px;
+			}
+			#bbs-list ul li {
+				clear: both;
+				position: relative;
+				background: #fff;
+				padding: 10px 8px 10px 8px;
+				min-height: 0;
+				height: auto;
+				overflow: hidden;
+				margin-bottom: 5px;
+			}
+			.diplay-inline-block {
+				display: inline-block;
+				height: 40px;
+				vertical-align: middle;
+				line-height: 40px;
+				margin-left: 8px;
+			}
+			.article-area {
+				margin-top: 10px;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-orient: horizontal;
+				-webkit-flex-flow: row;
+				flex-flow: row;
+				width: 100%;
+			}
+			.article-info {
+				-webkit-box-flex: 1;
+				-webkit-flex: 1;
+				flex: 1;
+				position: relative;
+			}
+			.article-info p {
+				color: #333;
+				font-size: 15px;
+			}
+			.article-info  span {
+				padding-top: 7px;
+				display: block;
+				font-size: 9px;
+				color: #999;
+			}
+			.article-img {
+				width: 100px;
+				height: 100px;
+			}
+			.ico-zhan {
+				display: inline-block;
+				font-size: 10px;
+				color: #fff;
+				background: #999;
+				padding: 1px 3px;
+				vertical-align: middle;
+				margin-right: 8px;
+			}
+			.ico-zhan.hot {
+				background: #fdba7d;
+			}
+			.aui-ellipsis-1, .aui-ellipsis-2 {
+				padding-right: 0 !important;
+			}
+			.bbs-title {
+				font-size: 16px;
+			}
+			.des-parent {
+				position: relative;
+			}
+			.des-parent:before {
+				border-left: 1px solid #d7d7d7;
+				content: "";
+				position: absolute;
+				top: 0;
+				left: -1px;
+				bottom: 0;
+				-webkit-transform: scaleX(.5);
+				-webkit-transform-origin: 0 0;
+			}
+			.des-parent:after {
+				border-right: 1px solid #d7d7d7;
+				content: "";
+				position: absolute;
+				top: 0;
+				right: 0px;
+				bottom: 0;
+				-webkit-transform: scaleX(.5);
+				-webkit-transform-origin: 0 0;
+			}
+			.bbs-des {
+				margin-top: 15px;
+				font-size: 16px;
+				padding: 15px 10px 15px 10px !important;
+				border-radius: 3px;
+				-webkit-border-radius: 3px;
+				position: relative;
+				overflow: visible;
+				color: #444;
+				position: relative;
+			}
+			.bbs-des:before {
+				content: "";
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				right: 0px;
+				border-top: 1px solid #d7d7d7;
+				-webkit-transform: scaleY(.5);
+				-webkit-transform-origin: 0 0;
+			}
+			.bbs-des:after {
+				content: "";
+				position: absolute;
+				bottom: 0px;
+				left: 0px;
+				right: 0px;
+				border-bottom: 1px solid #d7d7d7;
+				-webkit-transform: scaleY(.5);
+				-webkit-transform-origin: 0 0;
+			}
+			.bbs-des .sjx {
+				display: block;
+				height: 0px;
+				width: 0px;
+				border-width: 9px;
+				border-style: solid;
+				border-color: transparent transparent #d7d7d7 transparent;
+				position: absolute;
+				top: -24px;
+				left: 15px;
+				z-index: 10;
+			}
+			.bbs-des .sjx2 {
+				display: block;
+				height: 0px;
+				width: 0px;
+				border-width: 9px;
+				border-style: solid;
+				border-color: transparent transparent #fff transparent;
+				position: absolute;
+				top: -23px;
+				left: 15px;
+				z-index: 12;
+			}
+			.bbs-des label {
+				display: inline-block;
+				padding: 0 5px;
+				color: #999999;
+			}
+			.bbs-des font {
+				color: #4385f6;
+			}
+			.bbs-des .review {
+				color: #4385f6;
+				padding-top: 10px;
+				text-align: right;
+			}
+			#bbs-list li:active {
+				background: #f4f4f4;
+			}
+			.user-area span {
+				font-size: 15px;
+				display: inline-block;
+				margin-right: 15px;
+			}
+			.user-area .q-sort {
+				color: #4385f6;
+			}
+			.user-area .q-time {
+				color: #999999;
+				float: right;
+				margin-right: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="bbs-list">
+			<ul>
+				<li>
+					<div class="user-area">
+						<span class="q-sort">第 9 次解答</span><span class="q-time">2016-01-29</span>
+					</div>
+					<div class="article-area">
+						<div class="article-info">
+							<p class="aui-ellipsis-1 bbs-title">
+								<label class="ico-zhan">推荐</label>如何快速设计UI原型图？
+							</p>
+							<div class="des-parent">
+								<div class="bbs-des">
+									<span class="sjx"></span>
+									<span class="sjx2"></span>
+									<p>
+										<font>回复：</font>有些人是一直是向前的，你就是其中一个！
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="user-area">
+						<span class="q-sort">第 9 次解答</span><span class="q-time">2016-01-29</span>
+					</div>
+					<div class="article-area">
+						<div class="article-info">
+							<p class="aui-ellipsis-1 bbs-title">
+								<label class="ico-zhan">推荐</label>如何快速设计UI原型图？
+							</p>
+							<div class="des-parent">
+								<div class="bbs-des">
+									<span class="sjx"></span>
+									<span class="sjx2"></span>
+									<p>
+										<font>回复：</font>有些人是一直是向前的，你就是其中一个！
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="user-area">
+						<span class="q-sort">第 9 次解答</span><span class="q-time">2016-01-29</span>
+					</div>
+					<div class="article-area">
+						<div class="article-info">
+							<p class="aui-ellipsis-1 bbs-title">
+								<label class="ico-zhan">推荐</label>如何快速设计UI原型图？
+							</p>
+							<div class="des-parent">
+								<div class="bbs-des">
+									<span class="sjx"></span>
+									<span class="sjx2"></span>
+									<p>
+										<font>回复：</font>有些人是一直是向前的，你就是其中一个！
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="user-area">
+						<span class="q-sort">第 9 次解答</span><span class="q-time">2016-01-29</span>
+					</div>
+					<div class="article-area">
+						<div class="article-info">
+							<p class="aui-ellipsis-1 bbs-title">
+								<label class="ico-zhan">推荐</label>如何快速设计UI原型图？
+							</p>
+							<div class="des-parent">
+								<div class="bbs-des">
+									<span class="sjx"></span>
+									<span class="sjx2"></span>
+									<p>
+										<font>回复：</font>有些人是一直是向前的，你就是其中一个！
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="user-area">
+						<span class="q-sort">第 9 次解答</span><span class="q-time">2016-01-29</span>
+					</div>
+					<div class="article-area">
+						<div class="article-info">
+							<p class="aui-ellipsis-1 bbs-title">
+								<label class="ico-zhan">推荐</label>如何快速设计UI原型图？
+							</p>
+							<div class="des-parent">
+								<div class="bbs-des">
+									<span class="sjx"></span>
+									<span class="sjx2"></span>
+									<p>
+										<font>回复：</font>有些人是一直是向前的，你就是其中一个！
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="user-area">
+						<span class="q-sort">第 9 次解答</span><span class="q-time">2016-01-29</span>
+					</div>
+					<div class="article-area">
+						<div class="article-info">
+							<p class="aui-ellipsis-1 bbs-title">
+								<label class="ico-zhan">推荐</label>如何快速设计UI原型图？
+							</p>
+							<div class="des-parent">
+								<div class="bbs-des">
+									<span class="sjx"></span>
+									<span class="sjx2"></span>
+									<p>
+										<font>回复：</font>有些人是一直是向前的，你就是其中一个！
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="user-area">
+						<span class="q-sort">第 9 次解答</span><span class="q-time">2016-01-29</span>
+					</div>
+					<div class="article-area">
+						<div class="article-info">
+							<p class="aui-ellipsis-1 bbs-title">
+								<label class="ico-zhan">推荐</label>如何快速设计UI原型图？
+							</p>
+							<div class="des-parent">
+								<div class="bbs-des">
+									<span class="sjx"></span>
+									<span class="sjx2"></span>
+									<p>
+										<font>回复：</font>有些人是一直是向前的，你就是其中一个！
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="user-area">
+						<span class="q-sort">第 9 次解答</span><span class="q-time">2016-01-29</span>
+					</div>
+					<div class="article-area">
+						<div class="article-info">
+							<p class="aui-ellipsis-1 bbs-title">
+								<label class="ico-zhan">推荐</label>如何快速设计UI原型图？
+							</p>
+							<div class="des-parent">
+								<div class="bbs-des">
+									<span class="sjx"></span>
+									<span class="sjx2"></span>
+									<p>
+										<font>回复：</font>有些人是一直是向前的，你就是其中一个！
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="user-area">
+						<span class="q-sort">第 9 次解答</span><span class="q-time">2016-01-29</span>
+					</div>
+					<div class="article-area">
+						<div class="article-info">
+							<p class="aui-ellipsis-1 bbs-title">
+								<label class="ico-zhan">推荐</label>如何快速设计UI原型图？
+							</p>
+							<div class="des-parent">
+								<div class="bbs-des">
+									<span class="sjx"></span>
+									<span class="sjx2"></span>
+									<p>
+										<font>回复：</font>有些人是一直是向前的，你就是其中一个！
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="user-area">
+						<span class="q-sort">第 9 次解答</span><span class="q-time">2016-01-29</span>
+					</div>
+					<div class="article-area">
+						<div class="article-info">
+							<p class="aui-ellipsis-1 bbs-title">
+								<label class="ico-zhan">推荐</label>如何快速设计UI原型图？
+							</p>
+							<div class="des-parent">
+								<div class="bbs-des">
+									<span class="sjx"></span>
+									<span class="sjx2"></span>
+									<p>
+										<font>回复：</font>有些人是一直是向前的，你就是其中一个！
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="refresh-fixed winu-center-all"  tapmode  onclick="H.$setAutoDropdownToRefresh();">
+			<i class="iconfont icon-shuaxin"></i>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/AHelper.js"></script>
+	<script type="text/javascript" src="../../script/zepto.min.js"></script>
+	<script type="text/javascript">
+		Zepto(function($) {
+		});
+		H.ready(function() {
+			H.$dropdownToRefresh(function(ret, err) {
+				setTimeout(function() {
+					H.$recoverDropdownToNormal();
+				}, 1000);
+			});
+		});
+	</script>
+</html>

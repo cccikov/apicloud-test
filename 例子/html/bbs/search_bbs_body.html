@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../../css/aui/aui.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/winu-ui.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/iconfont/iconfont.css" />
+		<style type="text/css">
+			html, body {
+				background: rgba(0,0,0,0.2);
+			}
+			.share-maim {
+				background: rgba(255,255,255,255);
+				height: 87px;
+				overflow: hidden;
+				position: relative;
+			}
+			.search-area {
+				padding: 20px 10px 10px 10px;
+			}
+			.input-row {
+				border-radius: 3px;
+				-webkit-border-radius: 3px;
+				position: relative;
+			}
+			.parent-area {
+				position: relative;
+			}
+			.parent-area:before {
+				border-left: 1px solid #d7d7d7;
+				content: "";
+				position: absolute;
+				top: 0;
+				left: -1px;
+				bottom: 0;
+				-webkit-transform: scaleX(.5);
+				-webkit-transform-origin: 0 0;
+			}
+			.parent-area:after {
+				border-right: 1px solid #d7d7d7;
+				content: "";
+				position: absolute;
+				top: 0;
+				right: 0px;
+				bottom: 0;
+				-webkit-transform: scaleX(.5);
+				-webkit-transform-origin: 0 0;
+			}
+			.input-row:before {
+				content: "";
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				right: 0px;
+				border-top: 1px solid #d7d7d7;
+				-webkit-transform: scaleY(.5);
+				-webkit-transform-origin: 0 0;
+			}
+			.input-row:after {
+				content: "";
+				position: absolute;
+				bottom: 0px;
+				left: 0px;
+				right: 0px;
+				border-bottom: 1px solid #d7d7d7;
+				-webkit-transform: scaleY(.5);
+				-webkit-transform-origin: 0 0;
+			}
+			.input-row span {
+				width: 30px;
+				height: 41px;
+				display: block;
+				line-height: 41px;
+				color: #4385f6;
+			}
+			.input-row input {
+				vertical-align: middle;
+				border: none;
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="share-container winu-flex-box-vertical">
+			<div class="share-maim">
+				<div class="search-area">
+					<div class="parent-area">
+						<div class="input-row winu-flex-box-horizontal">
+							<input class="winu-flex-item" type="text" placeholder="请输入关键字搜索" />
+							<span class="iconfont icon-sousuo"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="share-space winu-flex-item"></div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/AHelper.js"></script>
+	<script type="text/javascript" src="../../script/zepto.min.js"></script>
+	<script type="text/javascript">
+		function closeShareFrame() {
+			H.$closeCurrentFrame();
+		}
+
+		Zepto(function() {
+			$(".share-maim li").on("tap", function() {
+				H.$toast($.trim($(this).find("p").text()));
+			});
+			$(".share-space").on("tap", function() {
+				closeShareFrame();
+			});
+		});
+	</script>
+</html>
